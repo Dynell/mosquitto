@@ -17,9 +17,8 @@ CROSS_PATH:=/opt/exorintos/1.5.3/sysroots
 
 CROSS_COMPILE:=$(CROSS_PATH)/i686-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-
 CC:=gcc
-#CPPFLAGS:= -I ../cjson -I ../../libwebsockets/include
-#LDFLAGS+= -L ../cjson -L ../../libwebsockets/lib -lcap
-#symlink="$(ln -fs ../../cJSON ../cjson)"                                         
+CPPFLAGS:= -I../cjson -I../libwebsockets/include
+LDFLAGS+= -L../cjson -L../libwebsockets/lib -lcap
 
 # Uncomment to compile the broker with tcpd/libwrap support.
 #WITH_WRAP:=yes
@@ -94,8 +93,8 @@ WITH_STATIC_LIBRARIES:=yes
 # Use this variable to add extra library dependencies when building the clients
 # with the static libmosquitto library. This may be required on some systems
 # where e.g. -lz or -latomic are needed for openssl.
-CLIENT_STATIC_LDADD:=-l:./cjson/build/libcjson.a -l:../libwebsockets/lib/libwebsockets.a
-LIBADD:=-l:./cjson/build/libcjson.a -l:../libwebsockets/lib/libwebsockets.a
+CLIENT_STATIC_LDADD:=-L../cjson/build/ -lcjson -L../libwebsockets/lib/ -lwebsockets
+LIBADD:=-L../cjson/build/ -lcjson -L../libwebsockets/lib/ -lwebsockets
 
 # Build shared libraries
 WITH_SHARED_LIBRARIES:=no
