@@ -93,8 +93,7 @@ WITH_STATIC_LIBRARIES:=yes
 # Use this variable to add extra library dependencies when building the clients
 # with the static libmosquitto library. This may be required on some systems
 # where e.g. -lz or -latomic are needed for openssl.
-CLIENT_STATIC_LDADD:=-L../cjson/build/ -lcjson -L../libwebsockets/lib/ -lwebsockets
-LIBADD:=-L../cjson/build/ -lcjson -L../libwebsockets/lib/ -lwebsockets
+CLIENT_STATIC_LDADD:=
 
 # Build shared libraries
 WITH_SHARED_LIBRARIES:=no
@@ -346,7 +345,7 @@ endif
 
 ifeq ($(WITH_WEBSOCKETS),yes)
 	BROKER_CPPFLAGS:=$(BROKER_CPPFLAGS) -DWITH_WEBSOCKETS
-	BROKER_LDADD:=$(BROKER_LDADD) -lwebsockets
+	BROKER_LDADD:=$(BROKER_LDADD) -l:../libwebsockets/lib/libwebsockets.a
 endif
 
 INSTALL?=install
@@ -387,7 +386,7 @@ endif
 ifeq ($(WITH_CJSON),yes)
 	CLIENT_CFLAGS:=$(CLIENT_CFLAGS) -DWITH_CJSON
 	CLIENT_LDADD:=$(CLIENT_LDADD) -lcjson
-	CLIENT_STATIC_LDADD:=$(CLIENT_STATIC_LDADD) -lcjson
+	CLIENT_STATIC_LDADD:=$(CLIENT_STATIC_LDADD) -l:../cjson/build/libcjson.a
 	CLIENT_LDFLAGS:=$(CLIENT_LDFLAGS)
 endif
 
