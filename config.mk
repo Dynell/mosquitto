@@ -13,6 +13,13 @@
 #
 # make WITH_TLS=no
 # =============================================================================
+CROSS_PATH:=/opt/exorintos/1.5.3/sysroots
+
+CROSS_COMPILE:=$(CROSS_PATH)/i686-pokysdk-linux/usr/bin/arm-poky-linux-gnueabi/arm-poky-linux-gnueabi-
+CC:=gcc
+#CPPFLAGS:= -I ../cjson -I ../../libwebsockets/include
+#LDFLAGS+= -L ../cjson -L ../../libwebsockets/lib -lcap
+#symlink="$(ln -fs ../../cJSON ../cjson)"                                         
 
 # Uncomment to compile the broker with tcpd/libwrap support.
 #WITH_WRAP:=yes
@@ -21,7 +28,7 @@
 # Disabling this will also mean that passwords must be stored in plain text. It
 # is strongly recommended that you only disable WITH_TLS if you are not using
 # password authentication at all.
-WITH_TLS:=yes
+WITH_TLS:=no
 
 # Comment out to disable TLS/PSK support in the broker and client. Requires
 # WITH_TLS=yes.
@@ -67,13 +74,13 @@ WITH_SYSTEMD:=no
 WITH_SRV:=no
 
 # Build with websockets support on the broker.
-WITH_WEBSOCKETS:=no
+WITH_WEBSOCKETS:=yes
 
 # Use elliptic keys in broker
 WITH_EC:=yes
 
 # Build man page documentation by default.
-WITH_DOCS:=yes
+WITH_DOCS:=no
 
 # Build with client support for SOCK5 proxy.
 WITH_SOCKS:=yes
@@ -82,15 +89,16 @@ WITH_SOCKS:=yes
 WITH_STRIP:=no
 
 # Build static libraries
-WITH_STATIC_LIBRARIES:=no
+WITH_STATIC_LIBRARIES:=yes
 
 # Use this variable to add extra library dependencies when building the clients
 # with the static libmosquitto library. This may be required on some systems
 # where e.g. -lz or -latomic are needed for openssl.
-CLIENT_STATIC_LDADD:=
+CLIENT_STATIC_LDADD:=-l:./cjson/build/libcjson.a -l:../libwebsockets/lib/libwebsockets.a
+LIBADD:=-l:./cjson/build/libcjson.a -l:../libwebsockets/lib/libwebsockets.a
 
 # Build shared libraries
-WITH_SHARED_LIBRARIES:=yes
+WITH_SHARED_LIBRARIES:=no
 
 # Build with async dns lookup support for bridges (temporary). Requires glibc.
 #WITH_ADNS:=yes
