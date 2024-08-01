@@ -1,3 +1,7 @@
 [submodule "cjson"]
 	path = cjson
 	url = https://github.com/Dynell/cJSON
+[submodule "libwebsockets"]
+	path = libwebsockets
+	url = https://github.com/Dynell/libwebsockets.git
+	branch = v4.3-stable
