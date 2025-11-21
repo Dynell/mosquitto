@@ -104,3 +104,6 @@ obj-*/
 
 # Others
 tmp/
+cmake_install.cmake
+src/Makefile
+**/CMakeFiles
